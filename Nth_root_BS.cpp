@@ -20,7 +20,7 @@ void find_Nth_root(double x, int n){
             upper=mid;
          }
          else{
-            lower=mid;
+            lower=mid+epsilon;
          }
          mid=(lower+upper)/2;
          diff=pow(mid,n)-x;
