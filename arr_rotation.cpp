@@ -1,5 +1,15 @@
 #include<stdio.h>
-int main() {
+
+void element_at_index(int arr[],int ind){  //without doing rotation(right)
+     int sum;
+    sum=(n+ind-(k%n))%n;
+    if(sum>(n-1)){
+            sum=sum-n;
+        }
+    printf("%d\n",arr[sum]);
+}
+
+int main() {  // left rotation
     int n, d;
     scanf("%d%d", &n, &d);
     int arr[100010];
