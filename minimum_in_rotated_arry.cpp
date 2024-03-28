@@ -1,22 +1,23 @@
-#include <iostream>
-#include <vector>
+#include<bits/stdc++.h> 
 using namespace std;
 
-int findMin(const vector<int>& nums) {
-    int low = 0, high = nums.size() - 1;
+int findMin(int arr[],int len) {
+    int low = 0, high =len - 1;
     while (low < high) {
         int mid = low + (high - low) / 2;
-        if (nums[mid] > nums[high]) {
-            low = mid + 1;
-        } else {
+        if (arr[high] >= arr[mid]) {
             high = mid;
+        } else {
+            low = mid + 1;
         }
     }
-    return nums[low];
+    return arr[low];
 }
 
 int main() {
-    vector<int> nums = {3, 4, 5, 1, 2};
-    cout << findMin(nums) << endl;
+    int arr[] = {3, 4, 5, 1, 2};
+    int len=5;
+    cout << findMin(arr,len) << endl;
     return 0;
 }
+
