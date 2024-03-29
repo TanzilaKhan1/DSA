@@ -43,3 +43,51 @@ int main() {
     return 0;
 }
 
+
+
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+bool checkPalindrome(string String, int i, int j)
+{
+    while (i < j)
+    {
+        if (String[i] == String[j])
+        {
+            i++;
+            j--;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+int minPalPartion(string String, int i, int j)
+{
+    if (i >= j || checkPalindrome(String, i, j)){
+        
+        return 0;
+    }
+    int ans = INT_MAX, count;
+    for (int k = i; k < j; k++)
+    {
+        count = minPalPartion(String, i, k) + minPalPartion(String, k + 1, j) + 1;
+        ans = min(ans, count);
+    }
+    return ans;
+}
+
+int main()
+{
+    string str = "abb";
+    int ans=minPalPartion(str, 0, str.length() - 1);
+    cout<< "Min cuts needed for Pal-Part is " << ans << endl;
+    return 0;
+}
