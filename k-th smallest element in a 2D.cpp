@@ -1,43 +1,47 @@
-#include <iostream>
-#include <vector>
+#include<bits/stdc++.h>
 using namespace std;
 
-int countLessEqual(const vector<vector<int>>& matrix, int mid) {
+int lessEqualToMid(int **input, int mid,int n, int m) {
     int count = 0;
-    int n = matrix.size(), i = n - 1, j = 0;
-    while (i >= 0 && j < matrix[0].size()) {
-        if (matrix[i][j] <= mid) {
-            count += i + 1;
-            j++;
-        } else {
-            i--;
+    int  x = n - 1, y = 0;
+    while (x >= 0 && y < m) {
+        if (mid < input[x][y]) {
+            x--;
+        } 
+        else {
+            count += x + 1;
+            y++;
         }
     }
     return count;
 }
 
-int kthSmallest(const vector<vector<int>>& matrix, int k) {
-    int n = matrix.size();
-    int left = matrix[0][0], right = matrix[n - 1][n - 1];
-    while (left < right) {
-        int mid = left + (right - left) / 2;
-        int count = countLessEqual(matrix, mid);
-        if (count < k) {
-            left = mid + 1;
-        } else {
-            right = mid;
+int kthSmallest(int n,int m,int **input,int k) {
+    int low=input[0][0];
+    int high=input[n-1][m-1]; 
+    while (high > low) {
+        int mid = low + (high - low) / 2;
+        int count = lessEqualToMid(input, mid, n,m);
+        if (count >= k) {        
+            high = mid;
+        } 
+        else {
+             low = mid + 1;
         }
     }
-    return left;
+    return low;
 }
 
-int main() {
-    vector<vector<int>> matrix = {
-        {1, 5, 9},
-        {10, 11, 13},
-        {12, 13, 15}
-    };
-    int k = 8;
-    cout << kthSmallest(matrix, k) << endl;
+int main() {  
+    int n=3,m=3 ;
+    int **arr = new int*[n]; 
+    for(int i=0; i<n; i++){
+        arr[i] = new int[m];
+        for(int j=0; j<m; j++){
+            cin>>arr[i][j];
+        }
+    }
+    int k = 7;
+    cout << kthSmallest(n,m,arr,k) << endl;
     return 0;
 }
