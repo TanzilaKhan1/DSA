@@ -121,6 +121,14 @@ struct bst
         return n;
     }
 
+    node *maxValueNode(node *n){
+        while (n->right != nullptr)
+        {
+            n = n->right;
+        }
+        return n;
+    }
+
     void deletes(node *p, int x){
         if (root == NULL){
             printf("Tree is empty\n");
@@ -186,14 +194,12 @@ struct bst
                 delete p;
                 return temp;
             }
-            node *temp = minValueNode(p->right);
+            node *temp = maxValueNode(p->left);
             p->val = temp->val;
-            p->right = delete_node(p->right, temp->val);
+            p->left = delete_node(p->right, temp->val);
         }
         return p;
     }
-
-
 
 
     int max_height(node *node)
@@ -269,10 +275,12 @@ int main()
     }
 
     bst1.deletes(bst1.root, 16);
-
+    bst1.delete_node(bst1.root, 16);
+    bst1.preorder(bst1.root);
     int h=0;
     int d=bst1.diameter(bst1.root,&h);
     cout<<d<<" "<<h<<endl;
 
     return 0;
 }
+
